@@ -4,18 +4,18 @@ package EmployeeAppUtil;
  * @autor Olvera Moran Braulio.
  */
 import java.sql.*;
-public class ConexionDB {
+public class ConnectionDB {
 
-    private Connection conexion;
+    private Connection connection;
 
     /**
      * Este metodo es de tipo booleano ya que aqui se conectara el programa a la base de datos y si tiene exito pues regresara TRUE y si no, sera FALSE
      * @return devuelve si tuvo exito la conexion con la base de datos o no.
      */
-    public boolean conectar() {
+    public boolean connect() {
         String url = "jdbc:mysql://127.0.0.1:3306/employeesapp";
         try { // Yo atrapo el error
-            this.conexion = DriverManager.getConnection(url,"root","1234");
+            this.connection = DriverManager.getConnection(url,"root","1234");
             return true;
         } catch (SQLException sqle) { // Yo me hago responsable
             System.err.println(sqle.getMessage());
@@ -29,9 +29,9 @@ public class ConexionDB {
      * @return devuelve los valores que se hayan insertado, modificado en la base de datos.
      * @throws SQLException nos ayuda a detectar si hay un error en el codigo y nos dice que debemos hacer en caso de que haya alguno.
      */
-    public int ejecutar(String sql) throws SQLException {
-        Statement sentencia = this.conexion.createStatement();
-        return sentencia.executeUpdate(sql); // ExecuteUpdate permite insertar actualizar datos y ademas dice cuanto registros se modificaron
+    public int execute(String sql) throws SQLException {
+        Statement statement = this.connection.createStatement();
+        return statement.executeUpdate(sql); // ExecuteUpdate permite insertar actualizar datos y ademas dice cuanto registros se modificaron
     }
 
     /**
@@ -40,9 +40,9 @@ public class ConexionDB {
      * @return devuelve los valores seleccionados en la base de datos.
      * @throws SQLException nos ayuda a detectar si hay un error en el codigo y nos dice que debemos hacer en caso de que haya alguno.
      */
-    public ResultSet consultar(String select) throws SQLException{
-        Statement sentencia = this.conexion.createStatement();
-        return sentencia.executeQuery(select);
+    public ResultSet consult(String select) throws SQLException{
+        Statement statement = this.connection.createStatement();
+        return statement.executeQuery(select);
     }
 
     /**
@@ -50,9 +50,9 @@ public class ConexionDB {
      * @throws SQLException nos ayuda a detectar si hay un error en el codigo y nos dice que debemos hacer en caso de que haya alguno.
      */
 
-    public void desconectar() throws SQLException { // Throws es para decir que alguien mas se haga responsable
-        if (this.conexion != null) {
-            this.conexion.close();
+    public void disconnect() throws SQLException { // Throws es para decir que alguien mas se haga responsable
+        if (this.connection != null) {
+            this.connection.close();
             // Si es un error muy importante, se usa TRY - CATCH y si es un error no tan
             // importante se usa THROWS
         }

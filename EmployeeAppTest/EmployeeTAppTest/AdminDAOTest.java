@@ -19,11 +19,11 @@ class AdminDAOTest {
      */
 
     @Test
-    public void testInsertar() throws SQLException {
+    public void testInsert() throws SQLException {
 
         AdminDAO adminDAO = new AdminDAO();
         Admin employee = new Admin();
-        employee.setIdEmployee(5);
+        employee.setIdEmployee(6);
         employee.setNameEmployee("Roberto");
         employee.setLastEmployee("Gomez Bolanos");
         employee.setDateBirthEmployee("12 - 02 - 2000 ");
@@ -31,9 +31,9 @@ class AdminDAOTest {
         employee.setPhoneEmployee("5637534589");
         employee.setSalaryEmployee(56795);
         employee.setRoleEmployee("Contador");
-        int cuantos = adminDAO.insertar(employee);
+        int cuantos = adminDAO.insert(employee);
         assertTrue (cuantos > 0);
-        testConsultar();
+        testConsult();
     }
 
     /**
@@ -42,9 +42,9 @@ class AdminDAOTest {
      */
 
     @Test
-    public void testConsultar () throws SQLException{
+    public void testConsult () throws SQLException{
         AdminDAO adminDAO = new AdminDAO();
-        List<Admin> employees = adminDAO.consultar();
+        List<Admin> employees = adminDAO.consult();
         assertTrue(employees.size()>0);
         System.out.println("---------------------------------------------------------------------------------------------------------------------------------------------");
         System.out.printf("                                          TABLE EMPLOYEES                             ");
@@ -62,20 +62,21 @@ class AdminDAOTest {
      */
 
     @Test
-    public void testActualizar() throws SQLException{
+    public void testUpdate() throws SQLException{
     AdminDAO adminDAO = new AdminDAO();
     Admin employee = new Admin();
-    employee.setIdEmployee(3);
-    employee.setNameEmployee("Andres");
+    employee.setIdEmployee(4);
+    employee.setNameEmployee("Andrew");
     employee.setLastEmployee("Martinez Olvera");
         //employee.setDateBirthtEmployee("");
         //employee.setAdressEmployee("");
         //employee.setPhoneEmployee("");
         //employee.setSalaryEmployee();
         //employee.setRoleEmployee("");
-    boolean cuantos = adminDAO.actualizar(employee);
+    boolean cuantos = adminDAO.update(employee);
     assertTrue (cuantos =  true);
-    testConsultar();
+        System.out.println("Se actualizo el employee con el id: " + employee.getIdEmployee());
+    testConsult();
 
     }
 
@@ -85,12 +86,12 @@ class AdminDAOTest {
      */
 
     @Test
-    public void testEliminar() throws SQLException{
+    public void testDelete() throws SQLException{
         AdminDAO adminDAO = new AdminDAO();
         Admin employee = new Admin();
-        employee.setIdEmployee(5);
-        boolean cuantos = adminDAO.eliminar(employee);
+        employee.setIdEmployee(6);
+        boolean cuantos = adminDAO.delete(employee);
         assertTrue (cuantos =  true);
-        testConsultar();
+        testConsult();
     }
 }

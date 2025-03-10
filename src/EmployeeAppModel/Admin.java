@@ -1,33 +1,33 @@
 package EmployeeAppModel;
 
-/** Admin va a representar los datos necesarios de un administrador el cual tendra  ciertas acciones como Insertar, eliminar, etc. en el programa.
- * Esta extiende de la clase Person para no repetir las mismas variables en ambas clases, solo se agregan las faltantes.
+/** Admin will represent the necessary data of an administrator who will have certain actions such as Insert, Delete, etc. in the program.
+ * This extends the Person class so as not to repeat the same variables in both classes, only the missing ones are added.
  * @autor Olvera Moran Braulio
  */
 
 public class Admin extends Person{
-    private int idEmployee, opc;
+    private int idEmployee;
     private String roleEmployee;
     private double salaryEmployee;
 
     /**
-     * Es de tipo int ya que el id es un numero y nos debe regresar un Int (Int para la base de datos).
-     * @return devuelve el id del empleado para poder visualizarlo en otros metodos.
+     * It is of type int since the id is a number and it must return an Int (Int for the database).
+     * @return returns the employee ID so that it can be displayed in other methods.
      */
     public int getIdEmployee() {
         return idEmployee;
     }
 
     /**
-     * El metodo es de tipo void ya que solo obtendra el valor de la variable idEmployee y no nos debe devolver nada.
-     * @param idEmployee representa el valor del id del Empleado.
+     * The method is of void type since it will only obtain the value of the idEmployee variable and should not return anything.
+     * @param idEmployee represents the value of the Employee id.
      */
     public void setIdEmployee(int idEmployee) {
         this.idEmployee = idEmployee;
     }
 
     /**
-     * Es de tipo String ya que el rol del empleado es una cadena y nos debe regresar un String (Varchar para la base de datos).
+     * It is of type String since the employee role is a string and must return a String (Varchar for the database).
      * @return devuelve el rol del empleado para poder visualizarlo en otros metodos.
      */
     public String getRoleEmployee() {

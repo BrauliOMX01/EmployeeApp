@@ -1,18 +1,21 @@
 package EmployeeAppDAO;
 
-/** AdminDAO va a realizar las acciones que tiene un admin pero este sera utilizado en otras clases ya que solo sera el esqueleto.
+/**
+ * AdminDAO va a realizar las acciones que tiene un admin pero este sera utilizado en otras clases ya que solo sera el esqueleto.
+ *
  * @autor Olvera Moran Braulio.
  */
 
 import EmployeeAppModel.Admin;
-import EmployeeAppUtil.ConexionDB;
+import EmployeeAppUtil.ConnectionDB;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AdminDAO {
-    private ConexionDB conexionDB = new ConexionDB();
+    private ConnectionDB connectionDB = new ConnectionDB();
 
     /**
      * Este metodo insertara datos en la base de datos pero solo sera el esqueleto ya que sera utilizado en otras clases.
@@ -20,13 +23,13 @@ public class AdminDAO {
      * @return devuelve si hubo algun problema.
      * @throws SQLException sirve para decirnos si hay algun error al ejecutar el codigo.
      */
-    public int insertar (Admin employee) throws SQLException {
-        conexionDB.conectar();
+    public int insert(Admin employee) throws SQLException {
+        connectionDB.connect();
         Admin Employee = new Admin();
 
-        String sql = "INSERT INTO employee (idEmployee, nameEmployee, lastEmployee, dateBirthEmployee, addressEmployee, numberEmployee, salaryEmployee, roleEmployee) values ('" + employee.getIdEmployee() + "' , '" + employee.getNameEmployee() + "' , '" + employee.getLastEmployee() + "' , '" + employee.getDateBirthEmployee() + "' , '" + employee.getAdressEmployee() + "' , '" + employee.getPhoneEmployee() + "' , '" + employee.getSalaryEmployee() + "' , '" + employee.getRoleEmployee()+"')";
-        int cuantos = conexionDB.ejecutar(sql);
-        conexionDB.desconectar();
+        String sql = "INSERT INTO employee (idEmployee, nameEmployee, lastEmployee, dateBirthEmployee, addressEmployee, numberEmployee, salaryEmployee, roleEmployee) values ('" + employee.getIdEmployee() + "' , '" + employee.getNameEmployee() + "' , '" + employee.getLastEmployee() + "' , '" + employee.getDateBirthEmployee() + "' , '" + employee.getAdressEmployee() + "' , '" + employee.getPhoneEmployee() + "' , '" + employee.getSalaryEmployee() + "' , '" + employee.getRoleEmployee() + "')";
+        int cuantos = connectionDB.execute(sql);
+        connectionDB.disconnect();
         return cuantos;
 
     }
@@ -37,15 +40,15 @@ public class AdminDAO {
      * @return devuelve si hubo algun problema.
      * @throws SQLException sirve para decirnos si hay algun error al ejecutar el codigo.
      */
-    public boolean actualizar (Admin employee) throws SQLException{
-        conexionDB.conectar();
+    public boolean update(Admin employee) throws SQLException {
+        connectionDB.connect();
         Admin Employee = new Admin();
         String sql = "UPDATE employee SET nameEmployee = '" + employee.getNameEmployee() + "', lastEmployee = '" + employee.getLastEmployee() + "' WHERE idEmployee=" + employee.getIdEmployee();
-        int cuantos = conexionDB.ejecutar(sql);
-        conexionDB.desconectar();
-        if(cuantos > 0) {
+        int cuantos = connectionDB.execute(sql);
+        connectionDB.disconnect();
+        if (cuantos > 0) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }
@@ -57,15 +60,17 @@ public class AdminDAO {
      * @return devuelve si hubo algun problema.
      * @throws SQLException sirve para decirnos si hay algun error al ejecutar el codigo.
      */
-    public boolean eliminar (Admin employee) throws SQLException{
-        conexionDB.conectar();
+    public boolean delete(Admin employee) throws SQLException {
+        connectionDB.connect();
         Admin Employee = new Admin();
         String sql = "DELETE FROM employee WHERE idEmployee =" + employee.getIdEmployee();
-        int cuantos = conexionDB.ejecutar(sql);
-        conexionDB.desconectar();
-        if(cuantos > 0) {
+        int cuantos = connectionDB.execute(sql);
+        connectionDB.disconnect();
+        if (cuantos > 0) {
+            System.out.println("Employee eliminated with id: " + employee.getIdEmployee());
             return true;
-        }else {
+        } else {
+            System.out.println("This is employee not exits");
             return false;
         }
     }
@@ -75,11 +80,11 @@ public class AdminDAO {
      * @return devuelve cada valor de la lista, imprimiendo cada campo de la base de datos.
      * @throws SQLException sirve para decirnos si hay algun error al ejecutar el codigo.
      */
-    public List<Admin> consultar () throws SQLException {
-        conexionDB.conectar();
+    public List<Admin> consult() throws SQLException {
+        connectionDB.connect();
         Admin Employee = new Admin();
         String select = "SELECT * FROM employee";
-        ResultSet rs = conexionDB.consultar(select);
+        ResultSet rs = connectionDB.consult(select);
         List<Admin> employees = new ArrayList<Admin>();
         while (rs.next()) {
             Admin employee = new Admin();
@@ -93,7 +98,7 @@ public class AdminDAO {
             employee.setRoleEmployee(rs.getString("roleEmployee"));
             employees.add(employee);
         }
-        conexionDB.desconectar();
+        connectionDB.disconnect();
         return employees;
     }
 
